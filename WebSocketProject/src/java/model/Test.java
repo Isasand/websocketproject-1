@@ -9,6 +9,7 @@ package model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.util.Pair;
 import model.MySQLClient.SensorTypes;
 
 /**
@@ -22,6 +23,7 @@ public class Test {
         List<SensorTypes> typeList = client.getSensortypes();
         List<Sensor> sensorList = client.getAllData();
         List<Sensor> AllsensorListHistorical = client.getAllHistoricalData();
+        List<Pair<String, String>> historicValues = new ArrayList<>();
         Sensor s = client.getTempData("1");
         
         System.out.println("TypeList----------------------");
@@ -58,8 +60,15 @@ public class Test {
              System.out.println(s.getTime());
              System.out.println(s.getCurrentData());      
             System.out.println("\n------------------------------");
+            historicValues = s.getHistoricValues();
+            for(Pair<String, String> h : historicValues  ){
+                System.out.println(h.toString());
+              
+                  
+              }  
+            System.out.println("\n------------------------------");
          
-         client.con.close();
+         client.disconnect();
     }
 
    
