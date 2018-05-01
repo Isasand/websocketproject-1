@@ -10,13 +10,30 @@ var socket = new WebSocket("ws://localhost:8080/WebSocketProject/actions");
 
 socket.onmessage = onMessage;
 
+
 function onMessage(event) {
     var sensor = JSON.parse(event.data);
-    var temp = document.getElementById("tempdata");
-    temp.innerHTML = sensor.data + sensor.id + sensor.type;
+    if(sensor.action!== "data"){
+        var temp = document.getElementById("tempdata");
+        temp.innerHTML = sensor.data + sensor.id + sensor.type;
+    }
+    if(sensor.action==="data"){
+        var temp = document.getElementById("tempdata");
+        temp.innerHTML += sensor.data;
+    }
     if (sensor.action === "add") {
         printSensorElement(sensor);
     }
+}
+
+function ask(){
+    var temp = document.getElementById("tempdata");
+    temp.innerHTML += "HEJ";
+    
+    var AskAction = {
+        action: "ask"
+    };
+    socket.send(JSON.stringify(AskAction));
 }
 
 function addDevice(name, type, description) {

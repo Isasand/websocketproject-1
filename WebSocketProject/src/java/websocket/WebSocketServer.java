@@ -32,7 +32,6 @@ import javax.json.JsonReader;
 @ServerEndpoint("/actions") //define wesocket server endpoint
 
 public class WebSocketServer {
-    private MySQLClient client = new MySQLClient(); 
     
     @Inject
     private SessionHandler sessionHandler;
@@ -61,9 +60,10 @@ public class WebSocketServer {
             try (JsonReader reader = Json.createReader(new StringReader(message))) {
                 JsonObject jsonMessage = reader.readObject();
                 
-                if ("add".equals(jsonMessage.getString("action"))) {
+                 
+                if ("ask".equals(jsonMessage.getString("action"))) {
+                    sessionHandler.sendDataMsg(); 
                 }
-
             if ("test".equals(jsonMessage.getString("action"))) {
             }
         }

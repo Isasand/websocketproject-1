@@ -76,4 +76,19 @@ public class SessionHandler {
     }
     
     
+    
+    private JsonObject createDataMsg(){
+        JsonProvider provider = JsonProvider.provider();
+        JsonObject msg = provider.createObjectBuilder()
+                .add("action", "data")
+                .add("data", "TEST")
+                .build(); 
+        return msg;
+    }
+    
+    
+    public void sendDataMsg(){
+        JsonObject jsonMsg = createDataMsg();  
+        sendToAllConnectedSessions(jsonMsg); 
+    }
 }
