@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Sensor;
 import java.math.BigInteger;
+import javafx.util.Pair;
 
 //klass för att koppla upp oss mot mySQL 
 public class MySQLClient {
@@ -101,16 +102,19 @@ public class MySQLClient {
 
         return sensorList;
     }
+    
 
-    public List<Sensor> getAllHistoricalDataBySensor(String sensorId) throws SQLException {
+    public List<Pair<String, String>> getAllHistoricalDataBySensor(String sensorId) throws SQLException {
 
-        List<Sensor> sensorList = new ArrayList<>();
-        List<SensorTypes> typeList = getSensortypes();
-        for (SensorTypes type : typeList) {
-            sensorList.addAll(getData(DBLimit, sensorId));
+        List<Pair<String, String>> historicValues = new ArrayList<>();
+        List<Sensor> sensorList = getData(DBLimit,sensorId);
+        int i= 0;
+       
+        for (Sensor sensor : sensorList) {
+            historicValues.add(new Pair <String,String> (sensor.getTime(), sensor.getCurrentData()));           
         }
 
-        return sensorList;
+        return historicValues;
     }
 
     public List<Sensor> getAllHistoricalDataLimit(int limit) throws SQLException {
@@ -155,6 +159,19 @@ public class MySQLClient {
             sensorList.add(new Sensor(data, id, time, type));
         }
         return sensorList;
+    }
+    
+    public Sensor getTempData(String sensorId) throws SQLException  {
+        Sensor tempSensor = new Sensor();
+        List<Sensor> sensorList= getAllHistoricalDataLimitAndSensor(1,sensorId);
+        for(Sensor sensor : sensorList){
+            tempSensor.setCurrentData(sensor.getCurrentData());
+            tempSensor.setHistoricValues(getAllHistoricalDataBySensor(sensorId));
+            tempSensor.setId(sensor.getId());
+            tempSensor.setType(sensor.getType());
+            tempSensor.setTime(sensor.getTime());
+        }
+      return tempSensor;
     }
 
 }

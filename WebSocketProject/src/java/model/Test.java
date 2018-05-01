@@ -18,7 +18,7 @@ import model.MySQLClient.SensorTypes;
 public class Test {
     static MySQLClient client = new MySQLClient(); 
     
-    public static void main(String[] args) throws SQLException{
+      public static void main(String[] args) throws SQLException{
         List<SensorTypes> typeList = client.getSensortypes();
         List<Sensor> sensorList = client.getAllData();
         List<Sensor> AllsensorListHistorical = client.getAllHistoricalData();
@@ -49,8 +49,6 @@ public class Test {
              System.out.println(sensor.getType());      
           }
          System.out.println("\n-------------------------------------------------------------");
-        
-         client.con.clearWarnings();
     }
 
    
