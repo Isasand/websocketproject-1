@@ -41,7 +41,7 @@ public class SessionHandler {
     }
     
     public void sendData() throws SQLException{
-        Sensor sens = client.getTempData("temp_001"); 
+        Sensor sens = client.getTempData("1"); 
         JsonObject jsonMsg = createJsonMessage(sens); 
         sendToAllConnectedSessions(jsonMsg); 
     }

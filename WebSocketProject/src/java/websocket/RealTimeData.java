@@ -32,7 +32,7 @@ public class RealTimeData extends HttpServlet {
         
       Sensor s = new Sensor();
         try {
-            s= client.getTempData("temp_001");
+            s= client.getTempData("1");
         } catch (SQLException ex) {
             Logger.getLogger(RealTimeData.class.getName()).log(Level.SEVERE, null, ex);
         }
