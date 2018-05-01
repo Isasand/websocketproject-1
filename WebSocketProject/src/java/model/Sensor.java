@@ -24,6 +24,8 @@ public class Sensor {
     private List<Pair<String, String>> historicValues = new ArrayList<>(); 
     
 
+    public Sensor(){}; 
+        
     public Sensor(String data, String id, String type, String time) {
         this.currentData = data; 
         this.time = time; 
