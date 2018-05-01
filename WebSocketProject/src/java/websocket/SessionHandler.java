@@ -36,8 +36,9 @@ public class SessionHandler {
         sessions.add(session);
     }
     //methods for adding and removing sessions to the server
-    public void removeSession(Session session) {
+    public void removeSession(Session session) throws SQLException {
         sessions.remove(session);
+        client.disconnect(); 
     }
     
     public void sendData() throws SQLException{

@@ -175,5 +175,8 @@ public class MySQLClient {
       return tempSensor;
 
     }
-
+    public void disconnect() throws SQLException{
+        con.close(); 
+    }
+    
 }
