@@ -55,7 +55,7 @@ public class RealTimeData extends HttpServlet {
          "<h1 align = \"center\">" + title + "</h1>\n" +
          "<p>Current temp is: " + s.getCurrentData()+ "</p>\n"
       );*/
-      RequestDispatcher view = request.getRequestDispatcher("index.html");
+      RequestDispatcher view = request.getRequestDispatcher("Dashboard.html");
       view.forward(request, response);
    }
    

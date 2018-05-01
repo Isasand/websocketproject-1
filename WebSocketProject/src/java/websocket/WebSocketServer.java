@@ -59,8 +59,7 @@ public class WebSocketServer {
             
             try (JsonReader reader = Json.createReader(new StringReader(message))) {
                 JsonObject jsonMessage = reader.readObject();
-                
-                 
+
                 if ("ask".equals(jsonMessage.getString("action"))) {
                     sessionHandler.sendDataMsg(); 
                 }
