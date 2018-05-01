@@ -31,12 +31,12 @@ public class RealTimeData extends HttpServlet {
       response.setIntHeader("Refresh", 5);
         
       Sensor s = new Sensor();
-      try { 
-            s= client.getTempData();
-        } 
-      catch (SQLException ex) {
+        try {
+            s= client.getTempData("temp_001");
+        } catch (SQLException ex) {
             Logger.getLogger(RealTimeData.class.getName()).log(Level.SEVERE, null, ex);
-       }
+        }
+        
         
       // Set response content type
       response.setContentType("text/html");
