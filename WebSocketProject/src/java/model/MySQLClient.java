@@ -156,5 +156,23 @@ public class MySQLClient {
         }
         return sensorList;
     }
+    
+    public Sensor getTempData(String sensorId) throws SQLException {
+        Sensor s = new Sensor(); 
+        
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT idSensorS,sensorData,sensorTimestamp,sensorType FROM Sensor,SensorTypes,Sensors\n"
+                + "where idSensor = idSensors AND sensorTypeNr = idtypes and idsensor = " + sensorId + "\n"
+                + "order by idSensorS,sensorTimestamp desc");
+
+        while (rs.next()) {
+            String id = rs.getString("idSensors");
+            String data = rs.getString("sensorData");
+            String time = rs.getString("sensorTimestamp");
+            String type = rs.getString("sensorType");
+            s = new Sensor(data, id, time, type);
+        }
+        return s;
+    }
 
 }
