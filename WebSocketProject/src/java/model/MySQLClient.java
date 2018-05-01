@@ -156,7 +156,7 @@ public class MySQLClient {
             String data = rs.getString("sensorData");
             String time = rs.getString("sensorTimestamp");
             String type = rs.getString("sensorType");
-            sensorList.add(new Sensor(data, id, time, type));
+            sensorList.add(new Sensor(data, id, type, time));
         }
         return sensorList;
     }
