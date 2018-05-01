@@ -94,6 +94,10 @@ public class Sensor {
         this.historicValues = values_times; 
     }
     
+    public List<Pair<String,String>> getHistoricValues(){
+        return this.historicValues; 
+    }
+    
     public void updateHistoricValues(Pair<String,String> value_time){
         this.historicValues.remove(0);
         this.historicValues.add(value_time); 

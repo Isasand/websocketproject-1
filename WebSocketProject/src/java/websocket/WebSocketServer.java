@@ -46,7 +46,7 @@ public class WebSocketServer {
     }
 
     @OnClose
-        public void close(Session session) {
+        public void close(Session session) throws SQLException {
             sessionHandler.removeSession(session);
     }
 

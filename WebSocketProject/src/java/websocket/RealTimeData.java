@@ -32,7 +32,7 @@ public class RealTimeData extends HttpServlet {
         
       Sensor s = new Sensor();
         try {
-            s= client.getTempData("temp_001");
+            s= client.getTempData("1");
         } catch (SQLException ex) {
             Logger.getLogger(RealTimeData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -44,7 +44,7 @@ public class RealTimeData extends HttpServlet {
       // Get current time
       
       PrintWriter out = response.getWriter();
-      String title = "Auto Page Refresh using Servlet";
+      /*String title = "Auto Page Refresh using Servlet";
       String docType =
          "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
       
@@ -54,7 +54,9 @@ public class RealTimeData extends HttpServlet {
          "<body bgcolor = \"#f0f0f0\">\n" +
          "<h1 align = \"center\">" + title + "</h1>\n" +
          "<p>Current temp is: " + s.getCurrentData()+ "</p>\n"
-      );
+      );*/
+      RequestDispatcher view = request.getRequestDispatcher("Dashboard.html");
+      view.forward(request, response);
    }
    
    // Method to handle POST method request.
