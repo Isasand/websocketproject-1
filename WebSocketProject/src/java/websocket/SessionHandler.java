@@ -56,7 +56,7 @@ public class SessionHandler {
     private JsonObject createJsonMessage(Sensor s) {
         JsonProvider provider = JsonProvider.provider();
         JsonObject msg = provider.createObjectBuilder()
-                .add("action", "tempdata")
+                .add("action", "data")
                 .add("id", s.getId())
                 .add("type", s.getType())
                 .add("time", s.getTime())
@@ -77,18 +77,26 @@ public class SessionHandler {
     
     
     
-    private JsonObject createDataMsg(){
+    private JsonObject createDataMsg() throws SQLException{
+        MySQLClient newClient = new MySQLClient(); 
+        Sensor sens = newClient.getTempData("1"); 
+        
         JsonProvider provider = JsonProvider.provider();
         JsonObject msg = provider.createObjectBuilder()
                 .add("action", "data")
-                .add("data", "TEST")
+                .add("data",  sens.getCurrentData())
                 .build(); 
         return msg;
     }
     
     
-    public void sendDataMsg(){
+    public void sendDataMsg() throws SQLException{
+        
         JsonObject jsonMsg = createDataMsg();  
         sendToAllConnectedSessions(jsonMsg); 
+    }
+    
+    public static void main(String[] args) throws SQLException{
+        System.out.println(client.getTempData("1").getCurrentData()); 
     }
 }

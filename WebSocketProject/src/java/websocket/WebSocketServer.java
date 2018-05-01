@@ -41,7 +41,7 @@ public class WebSocketServer {
      @OnOpen
         public void open(Session session) throws SQLException {
             sessionHandler.addSession(session);
-            sessionHandler.sendData(); 
+            //sessionHandler.sendData(); 
     }
 
     @OnClose

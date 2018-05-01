@@ -1,13 +1,235 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style>  
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+body, html {
+    height: 100%;
+    line-height: 1.8;
+}
+/* Full height image header */
+.bgimg-1 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("images/background.jpg");
+    min-height: 100%;
+}
+.w3-bar .w3-button {
+    padding: 16px;
+}
+
+div.hidden {
+    display: none;
+}
+
+</style>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="websocket.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
-    <body onload="ask()">
-    <textarea name="tempdata" id="tempdata" rows="2" cols="50"></textarea>
-                
-    </body>
+<body onload="ask()">
+   
+    
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card w3-black" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide">Groupproject</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="index.html" class="w3-bar-item w3-button">HOME</a>
+      <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> DASHBOARD</a>    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card  w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">HOME</a>
+  <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">DASHBOARD</a>
+</nav>
+
+
+
+
+<div class="bgimg-1 w3-display-container w3-text-white">
+  
+<header class="w3-panel w3-center w3-opacity" style="padding:30px 5px">
+ 
+</header>
+    
+ <div class=" w3-center ">
+    <h1 class="w3-jumbo ">DASHBOARD</h1>
+
+    <div class="w3-display-center w3-text-white" style="padding: 34px" >
+    <div class="w3-center ">
+ <div class=" w3-row-padding">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-center">
+          <h3>Temp-001</h3>
+        </div>
+        <div class="w3-center"><i class=" fa fa-thermometer-3  w3-xxxlarge"></i></div>
+        <div class="w3-clear"></div>
+        <h4 id="tempdata" >Loading data...</h4>
+
+       <p><a href="javascript:generateTable();" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off" id="btn_one">Historical values</a></p>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-blue w3-padding-16">
+        <div class="w3-center">
+          <h3>Temp-001</h3>
+        </div>
+        <div class="w3-center"><i class=" fa fa-thermometer-3  w3-xxxlarge"></i></div>
+        <div class="w3-clear"></div>
+        <h4>24.5</h4>
+
+       <p><a href="dashboard.html" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Historical values</a></p>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+         <div class="w3-center">
+          <h3>Temp-001</h3>
+        </div>
+        <div class="w3-center"><i class=" fa fa-share-alt  w3-xxxlarge"></i></div>
+        <div class="w3-clear"></div>
+        <h4>24.5</h4>
+
+       <p><a href="dashboard.html" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Historical values</a></p>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-orange w3-text-white w3-padding-16">
+         <div class="w3-center">
+          <h3>Temp-001</h3>
+        </div>
+        <div class="w3-center"><i class=" fa fa-users  w3-xxxlarge"></i></div>
+        <div class="w3-clear"></div>
+        <h4>24.5</h4>
+
+       <p><a href="dashboard.html" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Historical values</a></p>
+      </div>
+    </div>
+    <div class="w3-twothird" id="addTable" style="margin-top:1%">
+    </div>
+
+ </div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+<!-- Header with full-height image -->
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64">
+  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+ 
+<!-- Add Google Maps -->
+<script>
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+var mySidebar = document.getElementById("mySidebar");
+
+var hideTable = true; 
+
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+    } else {
+        mySidebar.style.display = 'block';
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+}
+
+function toggleTable(){
+    if (document.getElementById('table').classList.contains('hidden')){
+
+      document.getElementById("table").classList.remove('hidden'); 
+    }
+    else{
+
+    document.getElementById("table").classList.add('hidden'); 
+    }
+
+}
+
+function generateTable(){
+
+    if(!hideTable){
+      document.getElementById("addTable").innerHTML = ""; 
+      
+    document.getElementById("btn_one").innerHTML = "Historical values"; 
+      hideTable = true; 
+    }
+    else{
+
+    document.getElementById("btn_one").innerHTML = "Hide"; 
+    var myTableDiv = document.getElementById("addTable");
+
+    var table = document.createElement('TABLE');
+    table.classList.add("w3-striped");
+    table.classList.add("w3-white"); 
+    table.classList.add("w3-table"); 
+    var tableBody = document.createElement('TBODY');
+    table.appendChild(tableBody);
+
+
+    var icons = new Array("fa fa-thermometer-3 w3-text-red w3-large", 
+      "fa fa-thermometer w3-text-blue w3-large", 
+      "fa fa-thermometer-2 w3-text-yellow w3-large", 
+      "fa fa-thermometer-1 w3-text-blue w3-large", 
+      "fa fa-thermometer-empty w3-text-green w3-large");
+
+    var stock = new Array();
+    stock[0] = new Array("Temp: 24.3", "2018-03-30 12:30:45.4");
+    stock[1] = new Array("Temp: 24.3", "2018-03-30 12:30:45.4");
+    stock[2] = new Array("Temp: 24.3", "2018-03-30 12:30:45.4");
+    stock[3] = new Array("Temp: 24.3", "2018-03-30 12:30:45.4");
+    stock[4] = new Array("Temp: 24.3", "2018-03-30 12:30:45.4");
+
+for (i = 0; i < stock.length; i++) {
+    var tr = document.createElement('TR');
+    var td1 = document.createElement('TD');
+    var italic = document.createElement("I");
+    italic.innerHTML = '<i class="' + icons[i] +'"></i>';
+    td1.appendChild(italic);
+    tr.appendChild(td1);
+    for (j = 0; j < stock[i].length; j++) {
+        var td = document.createElement('TD')
+        td.appendChild(document.createTextNode(stock[i][j]));
+        tr.appendChild(td);
+    }
+    tableBody.appendChild(tr);
+}
+myTableDiv.appendChild(table)
+hideTable = false; 
+}
+}
+
+</script>
+
+
+</body>
 </html>

@@ -19,7 +19,7 @@ function onMessage(event) {
     }
     if(sensor.action==="data"){
         var temp = document.getElementById("tempdata");
-        temp.innerHTML += sensor.data;
+        temp.innerHTML = sensor.data;
     }
     if (sensor.action === "add") {
         printSensorElement(sensor);
@@ -28,7 +28,6 @@ function onMessage(event) {
 
 function ask(){
     var temp = document.getElementById("tempdata");
-    temp.innerHTML += "HEJ";
     
     var AskAction = {
         action: "ask"
