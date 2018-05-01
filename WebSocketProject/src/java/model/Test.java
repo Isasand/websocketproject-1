@@ -21,27 +21,40 @@ public class Test {
     public static void main(String[] args) throws SQLException{
         List<SensorTypes> typeList = client.getSensortypes();
         List<Sensor> sensorList = client.getAllData();
+        List<Sensor> AllsensorListHistorical = client.getAllHistoricalData();
         
+        System.out.println("TypeList------------------------------------------------------");
          for(SensorTypes type : typeList) {
-            System.out.println("TypeList------------------------------------------------------");
             System.out.println(type.getId());
-            System.out.println(type.getSensorType());
-            System.out.println("\n-------------------------------------------------------------");
+            System.out.println(type.getSensorType());           
         }
+          System.out.println("\n-------------------------------------------------------------");
          
+          System.out.println("SensorList------------------------------------------------------");
          for(Sensor sensor : sensorList){
-            System.out.println("SensorList------------------------------------------------------");
+            
             System.out.println(sensor.getId());
-            System.out.println(sensor.getData());
+            System.out.println(sensor.getCurrentData());
              System.out.println(sensor.getTime());
-             System.out.println(sensor.getType());
-            System.out.println("\n-------------------------------------------------------------");
+             System.out.println(sensor.getType());         
              
          }
-        
+         System.out.println("\n-------------------------------------------------------------");
          
+         System.out.println("SensorListHistorical------------------------------------------------------");
+          for(Sensor sensor : AllsensorListHistorical){            
+            System.out.println(sensor.getId());
+            System.out.println(sensor.getCurrentData());
+             System.out.println(sensor.getTime());
+             System.out.println(sensor.getType());      
+          }
+         System.out.println("\n-------------------------------------------------------------");
+        
+         client.con.clearWarnings();
     }
 
    
    
 }
+
+  

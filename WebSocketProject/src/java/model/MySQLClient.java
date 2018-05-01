@@ -1,4 +1,4 @@
-﻿/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -13,50 +13,38 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Sensor;
+import java.math.BigInteger;
 
 //klass för att koppla upp oss mot mySQL 
 public class MySQLClient {
-    Connection con; 
+
+    Connection con;
     Statement stmt;
-    
-    public MySQLClient(){
+    int DBLimit = 1000;
+    String AllSensorId = "idSensors";
+
+    public MySQLClient() {
         connectToDB();
     }
-    
+
     //connect to database
-    public void connectToDB(){
-        try{
+    public void connectToDB() {
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://groupproject.cvkvpqimwsoj.eu-central-1.rds.amazonaws.com:3306/sensordata", "masteruser", "Jason2009");
+            con = DriverManager.getConnection("jdbc:mysql://groupproject.cvkvpqimwsoj.eu-central-1.rds.amazonaws.com:3306/GrupparbeteDB", "masteruser", "Jason2009");
             stmt = con.createStatement();
-        }
-        catch(ClassNotFoundException | SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
     }
-    
-    public Sensor getTempData() throws SQLException{
-        List<Sensor> sensorList = new ArrayList<>();
-        Statement stmt = con.createStatement(); 
-        ResultSet rs = stmt.executeQuery("SELECT * FROM data ORDER BY time DESC");
-        Sensor s = new Sensor("hej", null, null, null); 
-        
-        while(rs.next()){
-            String time = rs.getString("time");
-            String type = rs.getString("type");
-            String data = rs.getString("data");
-            String id = rs.getString("id"); 
-            s = new Sensor(data, id, time, type);
-        } 
-        return s;
-    }
-    
+
     public class SensorTypes {
+
         private int id;
         private String sensorType;
 
-        public SensorTypes(int id,String sensorType) {         
+        public SensorTypes(int id, String sensorType) {
             this.id = id;
             this.sensorType = sensorType;
         }
@@ -90,63 +78,83 @@ public class MySQLClient {
         }
 
     }
-    public List<SensorTypes> getSensortypes() throws SQLException{
+
+    public List<SensorTypes> getSensortypes() throws SQLException {
         List<SensorTypes> typeList = new ArrayList<>();
-        
-        Statement stmt = con.createStatement(); 
+        Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM SensorTypes");
-        
-        while(rs.next()){
-            int id = rs.getInt("idtypes");            
-            String type = rs.getString("type");
-            
-            typeList.add(new SensorTypes(id,type));
-        } 
+        while (rs.next()) {
+            int id = rs.getInt("idtypes");
+            String type = rs.getString("sensorType");
+            typeList.add(new SensorTypes(id, type));
+        }
         return typeList;
     }
-    
-    
-    
-    
-    public List<Sensor> getAllData() throws SQLException{
-//        private String id;
-//        private String type;
-//        private String data;
-//        private String time;
+
+    public List<Sensor> getAllHistoricalData() throws SQLException {
+
         List<Sensor> sensorList = new ArrayList<>();
-        
-        Statement stmt = con.createStatement(); 
-        ResultSet rs = stmt.executeQuery("SELECT sensorIndex,sensorData,type, sensorTimestamp FROM Sensor,SensorTypes,Sensors\n" +
-"where idSensor = idSensors AND sensorType = idtypes;;");
-        
-        while(rs.next()){
-            String id = rs.getString("sensorIndex");
+        List<SensorTypes> typeList = getSensortypes();
+        for (SensorTypes type : typeList) {
+            sensorList.addAll(getData(DBLimit, AllSensorId));
+        }
+
+        return sensorList;
+    }
+
+    public List<Sensor> getAllHistoricalDataBySensor(String sensorId) throws SQLException {
+
+        List<Sensor> sensorList = new ArrayList<>();
+        List<SensorTypes> typeList = getSensortypes();
+        for (SensorTypes type : typeList) {
+            sensorList.addAll(getData(DBLimit, sensorId));
+        }
+
+        return sensorList;
+    }
+
+    public List<Sensor> getAllHistoricalDataLimit(int limit) throws SQLException {
+
+        List<Sensor> sensorList = new ArrayList<>();
+        List<SensorTypes> typeList = getSensortypes();
+        for (SensorTypes type : typeList) {
+            sensorList.addAll(getData(limit, AllSensorId));
+        }
+
+        return sensorList;
+    }
+
+    public List<Sensor> getAllHistoricalDataLimitAndSensor(int limit,String sensorId) throws SQLException {
+
+        List<Sensor> sensorList = new ArrayList<>();
+        List<SensorTypes> typeList = getSensortypes();
+        for (SensorTypes type : typeList) {
+            sensorList.addAll(getData(limit, sensorId));
+        }
+
+        return sensorList;
+    }
+
+    public List<Sensor> getAllData() throws SQLException {
+        List<Sensor> sensorList = getData(DBLimit, AllSensorId);
+        return sensorList;
+    }
+
+    public List<Sensor> getData(int amount, String sensorId) throws SQLException {
+        List<Sensor> sensorList = new ArrayList<>();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT idSensorS,sensorData,sensorTimestamp,sensorType FROM Sensor,SensorTypes,Sensors\n"
+                + "where idSensor = idSensors AND sensorTypeNr = idtypes and idsensor = " + sensorId + "\n"
+                + "order by idSensorS,sensorTimestamp desc limit " + amount);
+
+        while (rs.next()) {
+            String id = rs.getString("idSensors");
             String data = rs.getString("sensorData");
             String time = rs.getString("sensorTimestamp");
-            
-            String type = rs.getString("type");
-            
-            
-             
+            String type = rs.getString("sensorType");
             sensorList.add(new Sensor(data, id, time, type));
-        } 
+        }
         return sensorList;
     }
-    
-    public List<Sensor> getHistoricalData(int amount) throws SQLException{
-        List<Sensor> sensorList = new ArrayList<>();
-        Statement stmt = con.createStatement(); 
-        ResultSet rs = stmt.executeQuery("SELECT * FROM data");
-        
-        while(rs.next()){
-            String time = rs.getString("time");
-            
-            String type = rs.getString("type");
-            String data = rs.getString("data");
-            
-            String id = rs.getString("id"); 
-            sensorList.add(new Sensor(data, id, time, type));
-        } 
-        return sensorList;
-    }
+
 }
