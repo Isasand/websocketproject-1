@@ -5,6 +5,10 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+import javafx.util.Pair;
 /**
  *
  * @author Isa
@@ -15,11 +19,13 @@ public class Sensor {
 
     private String id;
     private String type;
-    private String data;
+    private String currentData;
     private String time;
+    private List<Pair<String, String>> historicValues = new ArrayList<>(); 
+    
 
     public Sensor(String data, String id, String type, String time) {
-        this.data = data; 
+        this.currentData = data; 
         this.time = time; 
         this.id = id; 
         this.type = type;
@@ -56,15 +62,15 @@ public class Sensor {
     /**
      * @return the data
      */
-    public String getData() {
-        return data;
+    public String getCurrentData() {
+        return currentData;
     }
 
     /**
      * @param data the data to set
      */
-    public void setData(String data) {
-        this.data = data;
+    public void setCurrentData(String data) {
+        this.currentData = data;
     }
 
     /**
@@ -79,6 +85,16 @@ public class Sensor {
      */
     public void setTime(String time) {
         this.time = time;
+    }
+    
+    
+    public void setHistoricValues(List<Pair<String, String>> values_times){
+        this.historicValues = values_times; 
+    }
+    
+    public void updateHistoricValues(Pair<String,String> value_time){
+        this.historicValues.remove(0);
+        this.historicValues.add(value_time); 
     }
     
 }

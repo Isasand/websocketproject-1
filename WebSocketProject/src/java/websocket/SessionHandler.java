@@ -29,7 +29,9 @@ public class SessionHandler {
     
     private final Set<Session> sessions = new HashSet<>();
     //a heashset for storing the active sessions in the application
-        
+    private final Set<Sensor> sensors = new HashSet<>(); 
+    //hash set for sensors 
+    
     public void addSession(Session session) {
         sessions.add(session);
     }
@@ -57,7 +59,7 @@ public class SessionHandler {
                 .add("id", s.getId())
                 .add("type", s.getType())
                 .add("time", s.getTime())
-                .add("data", s.getData())
+                .add("data", s.getCurrentData())
                 .build();
         return msg;
     }
@@ -71,4 +73,6 @@ public class SessionHandler {
             Logger.getLogger(SessionHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 }

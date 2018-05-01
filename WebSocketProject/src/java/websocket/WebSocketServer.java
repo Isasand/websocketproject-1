@@ -19,17 +19,11 @@ import javax.websocket.server.ServerEndpoint;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import model.MySQLClient; 
-import model.Sensor; 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.io.StringReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -43,7 +37,6 @@ public class WebSocketServer {
     @Inject
     private SessionHandler sessionHandler;
     //sessionhandler object for processing lifecycle events in each session
-    
     
     //define lifecycle annotations
      @OnOpen
