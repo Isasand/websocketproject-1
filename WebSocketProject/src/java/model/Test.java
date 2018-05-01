@@ -22,15 +22,16 @@ public class Test {
         List<SensorTypes> typeList = client.getSensortypes();
         List<Sensor> sensorList = client.getAllData();
         List<Sensor> AllsensorListHistorical = client.getAllHistoricalData();
+        Sensor s = client.getTempData("1");
         
-        System.out.println("TypeList------------------------------------------------------");
+        System.out.println("TypeList----------------------");
          for(SensorTypes type : typeList) {
             System.out.println(type.getId());
             System.out.println(type.getSensorType());           
         }
-          System.out.println("\n-------------------------------------------------------------");
+          System.out.println("\n---------------------------");
          
-          System.out.println("SensorList------------------------------------------------------");
+          System.out.println("SensorList--------------------");
          for(Sensor sensor : sensorList){
             
             System.out.println(sensor.getId());
@@ -39,16 +40,26 @@ public class Test {
              System.out.println(sensor.getType());         
              
          }
-         System.out.println("\n-------------------------------------------------------------");
+         System.out.println("\n-----------------------------");
          
-         System.out.println("SensorListHistorical------------------------------------------------------");
+         System.out.println("SensorListHistorical-----------");
           for(Sensor sensor : AllsensorListHistorical){            
             System.out.println(sensor.getId());
             System.out.println(sensor.getCurrentData());
              System.out.println(sensor.getTime());
              System.out.println(sensor.getType());      
           }
-         System.out.println("\n-------------------------------------------------------------");
+         System.out.println("\n-----------------------------");
+         
+         System.out.println("Sensor-------------------------");
+                    
+            System.out.println(s.getId());
+            System.out.println(s.getType());
+             System.out.println(s.getTime());
+             System.out.println(s.getCurrentData());      
+            System.out.println("\n------------------------------");
+         
+         client.con.close();
     }
 
    

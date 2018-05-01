@@ -161,7 +161,7 @@ public class MySQLClient {
         return sensorList;
     }
     
-<<<<<<< HEAD
+
     public Sensor getTempData(String sensorId) throws SQLException  {
         Sensor tempSensor = new Sensor();
         List<Sensor> sensorList= getAllHistoricalDataLimitAndSensor(1,sensorId);
@@ -173,24 +173,7 @@ public class MySQLClient {
             tempSensor.setTime(sensor.getTime());
         }
       return tempSensor;
-=======
-    public Sensor getTempData(String sensorId) throws SQLException {
-        Sensor s = new Sensor(); 
-        
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT idSensorS,sensorData,sensorTimestamp,sensorType FROM Sensor,SensorTypes,Sensors\n"
-                + "where idSensor = idSensors AND sensorTypeNr = idtypes and idsensor = " + sensorId + "\n"
-                + "order by idSensorS,sensorTimestamp desc");
 
-        while (rs.next()) {
-            String id = rs.getString("idSensors");
-            String data = rs.getString("sensorData");
-            String time = rs.getString("sensorTimestamp");
-            String type = rs.getString("sensorType");
-            s = new Sensor(data, id, time, type);
-        }
-        return s;
->>>>>>> c96ef4f82eefb25ae241704b4f7e80c8aeb1eb99
     }
 
 }
