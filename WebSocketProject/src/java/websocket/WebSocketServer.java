@@ -36,6 +36,7 @@ import model.Sensor;
 
 public class WebSocketServer {
     
+    static String msg = ""; 
     Sensor currentSensor = new Sensor(); 
     
     @Inject
@@ -61,7 +62,7 @@ public class WebSocketServer {
 
     @OnMessage
         public void handleMessage(String message, Session session) throws SQLException {
-            
+            msg = message; 
             try (JsonReader reader = Json.createReader(new StringReader(message))) {
                 JsonObject jsonMessage = reader.readObject();
 
@@ -70,6 +71,7 @@ public class WebSocketServer {
                 }
                
                 if("updatedata".equals(jsonMessage.getString("action"))){
+                    
                     String type = jsonMessage.getString("type"); 
                     String id = jsonMessage.getString("id");
                     String data = jsonMessage.getString("data"); 
@@ -84,6 +86,12 @@ public class WebSocketServer {
             }
         }
 }
+        
+        public static void main(String[] args){
+            while(true){
+                System.out.println(msg); 
+            }
+        }
 }
         
 
