@@ -78,6 +78,7 @@ public class WebSocketServer {
                     String time = DateHandler.getDateString(new Date());
                     currentSensor = new Sensor(data, id, type, time);
                     //TODO: send to database
+                    
                     sessionHandler.sendRealTimeData(jsonMessage); 
                 }
                 

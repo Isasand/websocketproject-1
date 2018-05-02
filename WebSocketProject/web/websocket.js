@@ -6,7 +6,7 @@
 
 
 window.onload = init;
-var socket = new WebSocket("ws://46.236.77.37:8080/WebSocketProject/actions");
+var socket = new WebSocket("ws://localhost:8080/WebSocketProject/actions");
 
 socket.onmessage = onMessage;
 
@@ -32,7 +32,7 @@ function ask(){
     var AskAction = {
         action: "ask"
     };
-    socket.send(JSON.stringify(AskAction));
+   
 }
 
 function addDevice(name, type, description) {
