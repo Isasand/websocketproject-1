@@ -35,6 +35,7 @@ public class SessionHandler {
     public void addSession(Session session) {
         sessions.add(session);
     }
+    
     //methods for adding and removing sessions to the server
     public void removeSession(Session session) throws SQLException {
         sessions.remove(session);
@@ -47,11 +48,16 @@ public class SessionHandler {
         sendToAllConnectedSessions(jsonMsg); 
     }
     
+    public void sendRealTimeData(JsonObject jsonMsg){
+        sendToAllConnectedSessions(jsonMsg);
+    }
+    
     private void sendToAllConnectedSessions(JsonObject message) {
         for (Session session : sessions) {
             sendToSession(session, message);
         }
     }
+    
     
     private JsonObject createJsonMessage(Sensor s) {
         JsonProvider provider = JsonProvider.provider();
