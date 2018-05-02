@@ -63,6 +63,7 @@ public class WebSocketServer {
                 if ("ask".equals(jsonMessage.getString("action"))) {
                     sessionHandler.sendDataMsg(); 
                 }
+                
             if ("test".equals(jsonMessage.getString("action"))) {
             }
         }
