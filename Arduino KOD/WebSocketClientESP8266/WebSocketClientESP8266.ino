@@ -17,7 +17,7 @@
 ESP8266WiFiMulti WiFiMulti;
 WebSocketsClient webSocket;
 
-#define USE_SERIAL Serial1
+#define USE_SERIAL Serial
 
 void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
 
@@ -74,7 +74,7 @@ void setup() {
 	}
 
 	// server address, port and URL
-	webSocket.begin("46.236.77.37", 8080, "/WebSocketProject/actions");
+	webSocket.begin("192.168.0.108", 8080, "/WebSocketProject/actions");
  
 
 	// event handler
@@ -92,4 +92,7 @@ void loop() {
 	webSocket.loop();
   webSocket.sendTXT("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \"25.3\"}");
  delay(2000);
+ webSocket.sendTXT("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \"45.3\"}");
+ delay(2000);
+ 
 }

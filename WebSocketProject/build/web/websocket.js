@@ -13,16 +13,13 @@ socket.onmessage = onMessage;
 
 function onMessage(event) {
     var sensor = JSON.parse(event.data);
-    if(sensor.action!== "data"){
+    if(sensor.action=== "data"){
         var temp = document.getElementById("tempdata");
         temp.innerHTML = sensor.data + sensor.id + sensor.type;
     }
-    if(sensor.action==="data"){
+    if(sensor.action==="updatedata"){
         var temp = document.getElementById("tempdata");
         temp.innerHTML = sensor.data;
-    }
-    if (sensor.action === "add") {
-        printSensorElement(sensor);
     }
 }
 
