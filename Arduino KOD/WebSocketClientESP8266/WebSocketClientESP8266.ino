@@ -74,7 +74,8 @@ void setup() {
 	}
 
 	// server address, port and URL
-	webSocket.begin("192.168.0.108", 8080, "/WebSocketProject/actions");
+	webSocket.begin("46.236.77.37", 8080, "/WebSocketProject/actions");
+ 
 
 	// event handler
 	webSocket.onEvent(webSocketEvent);
