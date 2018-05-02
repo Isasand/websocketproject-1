@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Sensor;
 import java.math.BigInteger;
+import java.sql.PreparedStatement;
 import javafx.util.Pair;
 
 //klass för att koppla upp oss mot mySQL 
@@ -107,7 +108,7 @@ public class MySQLClient {
     public List<Pair<String, String>> getAllHistoricalDataBySensor(String sensorId) throws SQLException {
 
         List<Pair<String, String>> historicValues = new ArrayList<>();
-        List<Sensor> sensorList = getData(DBLimit,sensorId);
+        List<Sensor> sensorList = getData(5,sensorId);
         int i= 0;
        
         for (Sensor sensor : sensorList) {
@@ -174,6 +175,21 @@ public class MySQLClient {
         }
       return tempSensor;
 
+    }
+    
+    public void addToDataTosensor (String data,String id,String type,String time) throws SQLException{
+        int inNr = Integer.parseInt(id);    
+        String sql = "INSERT INTO Sensor (sensorData,sensorTimestamp,idSensorS)" +
+                    "VALUES (?,?,?)";
+                    
+        Statement stmt = con.createStatement();
+        PreparedStatement preparedStatement = con.prepareStatement(sql);
+        preparedStatement.setString(1, data);
+        preparedStatement.setString(2, time);
+        preparedStatement.setString(3, id);
+        preparedStatement.executeUpdate(); 
+//        stmt.executeQuery("INSERT INTO `Sensor` (`sensorData`, `sensorTimestamp`, `idSensorS`) VALUES ('33','2018-04-27 12:12:33', '1');");
+        
     }
     public void disconnect() throws SQLException{
         con.close(); 

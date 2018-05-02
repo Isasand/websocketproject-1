@@ -9,6 +9,7 @@ package model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javafx.util.Pair;
 import model.MySQLClient.SensorTypes;
 
@@ -67,9 +68,25 @@ public class Test {
                   
               }  
             System.out.println("\n------------------------------");
+            
+            
+            System.out.println("Add to Sensor-------------------------");
+//            String data,String id,String type,String time
+            client.addToDataTosensor(randomTemp(),"1","Temp","2018-04-27 12:12:33");
+            System.out.println("\n------------------------------");
          
          client.disconnect();
     }
+     
+      public static String randomTemp (){
+        Random r = new Random();
+        float Low = 10.0f;
+        float High = 100.0f;
+        float Result = r.nextFloat()*(High - Low) + Low;
+        
+        
+        return Float.toString(Result);
+      }
 
    
    
