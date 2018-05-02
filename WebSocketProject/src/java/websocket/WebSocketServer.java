@@ -24,14 +24,19 @@ import java.util.logging.Logger;
 
 import java.io.StringReader;
 import java.sql.SQLException;
+import java.util.Date;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import model.DateHandler;
+import model.Sensor;
 
 @ApplicationScoped
 @ServerEndpoint("/actions") //define wesocket server endpoint
 
 public class WebSocketServer {
+    
+    Sensor currentSensor = new Sensor(); 
     
     @Inject
     private SessionHandler sessionHandler;
@@ -63,6 +68,17 @@ public class WebSocketServer {
                 if ("ask".equals(jsonMessage.getString("action"))) {
                     sessionHandler.sendDataMsg(); 
                 }
+               
+                if("updatedata".equals(jsonMessage.getString("action"))){
+                    String type = jsonMessage.getString("type"); 
+                    String id = jsonMessage.getString("id");
+                    String data = jsonMessage.getString("data"); 
+                    String time = DateHandler.getDateString(new Date());
+                    currentSensor = new Sensor(data, id, type, time);
+                    //TODO: send to database
+                    sessionHandler.sendRealTimeData(jsonMessage); 
+                }
+                
                 
             if ("test".equals(jsonMessage.getString("action"))) {
             }
