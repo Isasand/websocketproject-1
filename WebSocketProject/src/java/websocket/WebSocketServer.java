@@ -89,7 +89,10 @@ public class WebSocketServer {
         
         public static void main(String[] args){
             while(true){
-                System.out.println(msg); 
+                if(msg != ""){
+                  System.out.println(msg);   
+                }
+                
             }
         }
 }
