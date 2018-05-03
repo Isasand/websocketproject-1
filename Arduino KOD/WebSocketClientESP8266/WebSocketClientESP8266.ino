@@ -71,15 +71,16 @@ void setup() {
 		USE_SERIAL.flush();
 		delay(1000);
 	}
+   WiFi.begin("Poppekorn", "Jason2009");  
+  // WiFi.begin("Bryant", "Jason2009");  
 
-	WiFiMulti.addAP("Bryant", "Jason2009");
-
-	while(WiFiMulti.run() != WL_CONNECTED) {
-		delay(100);
+  while (WiFi.status() != WL_CONNECTED) { // Wait for the Wi-Fi to connect
+    delay(1000);;
 	}
 
 	// server address, port and URL
-	webSocket.begin("192.168.0.108", 8080, "/WebSocketProject/actions");
+	webSocket.begin("192.168.43.252", 8080, "/WebSocketProject/actions");
+  //webSocket.begin("192.168.0.108", 8080, "/WebSocketProject/actions");
  
 
 	// event handler

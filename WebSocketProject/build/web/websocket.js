@@ -6,7 +6,8 @@
 
 
 window.onload = init;
-var socket = new WebSocket("ws://192.168.0.108:8080/WebSocketProject/actions");
+var socket = new WebSocket("ws://192.168.43.252:8080/WebSocketProject/actions");
+//var socket = new WebSocket("ws://192.168.0.108:8080/WebSocketProject/actions");
 
 var hideTable = true; 
 socket.onmessage = onMessage;
