@@ -72,7 +72,7 @@ public class Test {
             
             System.out.println("Add to Sensor-------------------------");
 //            String data,String id,String type,String time
-            client.addToDataTosensor(randomTemp(),"1","Temp","2018-04-27 12:12:33");
+            client.addSensorDataToDB(randomTemp(),"1","Temp","2018-04-27 12:12:33");
             System.out.println("\n------------------------------");
          
          client.disconnect();

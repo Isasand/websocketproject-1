@@ -25,7 +25,7 @@ import model.Sensor;
 
 @ApplicationScoped
 public class SessionHandler {
-    static MySQLClient client = new MySQLClient(); 
+    MySQLClient client = new MySQLClient(); 
     
     private final Set<Session> sessions = new HashSet<>();
     //a heashset for storing the active sessions in the application
@@ -102,7 +102,4 @@ public class SessionHandler {
         sendToAllConnectedSessions(jsonMsg); 
     }
     
-    public static void main(String[] args) throws SQLException{
-        System.out.println(client.getTempData("1").getCurrentData()); 
-    }
 }

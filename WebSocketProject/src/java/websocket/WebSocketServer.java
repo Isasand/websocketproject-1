@@ -18,7 +18,6 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import model.MySQLClient; 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,10 +64,6 @@ public class WebSocketServer {
             msg = message; 
             try (JsonReader reader = Json.createReader(new StringReader(message))) {
                 JsonObject jsonMessage = reader.readObject();
-
-                if ("ask".equals(jsonMessage.getString("action"))) {
-                    sessionHandler.sendDataMsg(); 
-                }
                
                 if("updatedata".equals(jsonMessage.getString("action"))){
                     
@@ -76,27 +71,20 @@ public class WebSocketServer {
                     String id = jsonMessage.getString("id");
                     String data = jsonMessage.getString("data"); 
                     String time = DateHandler.getDateString(new Date());
-                    currentSensor = new Sensor(data, id, type, time);
-                    //TODO: send to database
-                    //sensor till databas
-                    //hämta 5 sensaste historiska värden
+                    sessionHandler.client.addSensorDataToDB(data, id, type, time);
                     sessionHandler.sendRealTimeData(jsonMessage); 
                 }
                 
-                
-            if ("test".equals(jsonMessage.getString("action"))) {
-            }
-        }
-}
-        
-        public static void main(String[] args){
-            while(true){
-                if(msg != ""){
-                  System.out.println(msg);   
+                if ("updatehistorical".equals(jsonMessage.getString("action"))){
+                    String id = jsonMessage.getString("id"); 
+                    
                 }
                 
-            }
+                
+           
         }
+}
+       
 }
         
 

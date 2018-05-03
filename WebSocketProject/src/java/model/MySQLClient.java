@@ -177,7 +177,7 @@ public class MySQLClient {
 
     }
     
-    public void addToDataTosensor (String data,String id,String type,String time) throws SQLException{
+    public void addSensorDataToDB (String data,String id,String type,String time) throws SQLException{
         int inNr = Integer.parseInt(id);    
         String sql = "INSERT INTO Sensor (sensorData,sensorTimestamp,idSensorS)" +
                     "VALUES (?,?,?)";
