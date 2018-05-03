@@ -6,7 +6,7 @@
 
 
 window.onload = init;
-var socket = new WebSocket("ws://localhost:8080/WebSocketProject/actions");
+var socket = new WebSocket("ws://192.168.0.108:8080/WebSocketProject/actions");
 
 socket.onmessage = onMessage;
 
@@ -17,6 +17,10 @@ function onMessage(event) {
         temp.innerHTML = sensor.data + sensor.id + sensor.type;
     }
     if(sensor.action==="updatedata"){
+        var temp = document.getElementById("tempdata");
+        temp.innerHTML = sensor.data;
+    }
+    if(sensor.action==="test"){
         var temp = document.getElementById("tempdata");
         temp.innerHTML = sensor.data;
     }
@@ -103,4 +107,8 @@ for (i = 0; i < stock.length; i++) {
 myTableDiv.appendChild(table)
 hideTable = false; 
 }
+
+}
+function init() {
+    hideForm();
 }

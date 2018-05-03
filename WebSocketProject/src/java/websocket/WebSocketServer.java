@@ -71,8 +71,10 @@ public class WebSocketServer {
                     String id = jsonMessage.getString("id");
                     String data = jsonMessage.getString("data"); 
                     String time = DateHandler.getDateString(new Date());
-                    sessionHandler.client.addSensorDataToDB(data, id, type, time);
                     sessionHandler.sendRealTimeData(jsonMessage); 
+                    sessionHandler.client.addSensorDataToDB(data, id, type, time);
+                    sessionHandler.sendTestData();
+                    
                 }
                 
                 if ("updatehistorical".equals(jsonMessage.getString("action"))){
@@ -81,10 +83,8 @@ public class WebSocketServer {
                 }
                 
                 
-           
         }
 }
-       
 }
         
 

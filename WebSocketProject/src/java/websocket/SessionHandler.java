@@ -48,6 +48,12 @@ public class SessionHandler {
         sendToAllConnectedSessions(jsonMsg); 
     }
     
+     public void sendTestData() throws SQLException{
+        Sensor sens = client.getTempData("1"); 
+        JsonObject jsonMsg = createJsonMessage(sens); 
+        sendToAllConnectedSessions(jsonMsg); 
+    }
+    
     public void sendRealTimeData(JsonObject jsonMsg){
         sendToAllConnectedSessions(jsonMsg);
     }
@@ -62,7 +68,7 @@ public class SessionHandler {
     private JsonObject createJsonMessage(Sensor s) {
         JsonProvider provider = JsonProvider.provider();
         JsonObject msg = provider.createObjectBuilder()
-                .add("action", "data")
+                .add("action", "test")
                 .add("id", s.getId())
                 .add("type", s.getType())
                 .add("time", s.getTime())

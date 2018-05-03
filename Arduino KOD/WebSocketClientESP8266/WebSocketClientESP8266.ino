@@ -13,6 +13,13 @@
 #include <WebSocketsClient.h>
 
 #include <Hash.h>
+#include <Adafruit_Sensor.h>
+#include "DHT.h"
+
+#define DHTPIN 2     // what digital pin the DHT22 is conected to
+#define DHTTYPE DHT22   // there are multiple kinds of DHT sensors
+
+DHT dht(DHTPIN, DHTTYPE);
 
 ESP8266WiFiMulti WiFiMulti;
 WebSocketsClient webSocket;
@@ -29,14 +36,20 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
 			USE_SERIAL.printf("[WSc] Connected to url: %s\n", payload);
 
 			// send message to server when Connected
-			webSocket.sendTXT("Connected");
+      float temp = dht.readTemperature();
+     String t = (String)temp;
+     webSocket.sendTXT("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \""+t+"\"}");
+     USE_SERIAL.println("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \""+t+"\"}");
+     USE_SERIAL.println(temp);
+       
+		
 		}
 			break;
 		case WStype_TEXT:
 			USE_SERIAL.printf("[WSc] get text: %s\n", payload);
 
 			// send message to server
-			 webSocket.sendTXT("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \"25.3\"}");
+			 //webSocket.sendTXT("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \"25.3\"}");
 			break;
 		case WStype_BIN:
 			USE_SERIAL.printf("[WSc] get binary length: %u\n", length);
@@ -81,7 +94,7 @@ void setup() {
 	webSocket.onEvent(webSocketEvent);
 
 	// use HTTP Basic Authorization this is optional remove if not needed
-	webSocket.setAuthorization("user", "Password");
+//webSocket.setAuthorization("user", "Password");
 
 	// try ever 5000 again if connection has failed
 	webSocket.setReconnectInterval(5000);
@@ -90,9 +103,8 @@ void setup() {
 
 void loop() {
 	webSocket.loop();
-  webSocket.sendTXT("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \"25.3\"}");
- delay(2000);
- webSocket.sendTXT("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \"45.3\"}");
- delay(2000);
+  webSocket.onEvent(webSocketEvent);
+
+ 
  
 }
