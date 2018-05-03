@@ -13,9 +13,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.util.Pair;
 import javax.websocket.Session;
 import javax.json.JsonObject;
 import javax.json.spi.JsonProvider;
@@ -64,6 +66,33 @@ public class SessionHandler {
         }
     }
     
+    public void sendHistoricalJsonMsg(List<Pair<String,String>> historicList){
+        JsonObject msg = createHistoricalJsonMsg(historicList); 
+        sendToAllConnectedSessions(msg); 
+    }
+    
+    private JsonObject createHistoricalJsonMsg(List<Pair<String,String>> historicList){
+        JsonProvider provider = JsonProvider.provider(); 
+        JsonObject msg = null; 
+        int count = 0; 
+        
+        msg = provider.createObjectBuilder()
+                .add("action", "historical")
+                .add("pair00", historicList.get(0).getKey())                              
+                .add("pair01", historicList.get(0).getValue())
+                .add("pair10", historicList.get(1).getKey())                              
+                .add("pair11", historicList.get(1).getValue())
+                .add("pair20", historicList.get(2).getKey())                              
+                .add("pair21", historicList.get(2).getValue())
+                .add("pair30", historicList.get(3).getKey())                              
+                .add("pair31", historicList.get(3).getValue())
+                .add("pair40", historicList.get(4).getKey())                              
+                .add("pair41", historicList.get(4).getValue())
+                .build();
+                
+        
+        return msg; 
+    }
     
     private JsonObject createJsonMessage(Sensor s) {
         JsonProvider provider = JsonProvider.provider();

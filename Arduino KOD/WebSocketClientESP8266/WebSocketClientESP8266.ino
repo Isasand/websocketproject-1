@@ -34,13 +34,6 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
 			break;
 		case WStype_CONNECTED: {
 			USE_SERIAL.printf("[WSc] Connected to url: %s\n", payload);
-
-			// send message to server when Connected
-      float temp = dht.readTemperature();
-     String t = (String)temp;
-     webSocket.sendTXT("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \""+t+"\"}");
-     USE_SERIAL.println("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \""+t+"\"}");
-     USE_SERIAL.println(temp);
        
 		
 		}
@@ -81,7 +74,6 @@ void setup() {
 
 	WiFiMulti.addAP("Bryant", "Jason2009");
 
-	//WiFi.disconnect();
 	while(WiFiMulti.run() != WL_CONNECTED) {
 		delay(100);
 	}
@@ -93,9 +85,6 @@ void setup() {
 	// event handler
 	webSocket.onEvent(webSocketEvent);
 
-	// use HTTP Basic Authorization this is optional remove if not needed
-//webSocket.setAuthorization("user", "Password");
-
 	// try ever 5000 again if connection has failed
 	webSocket.setReconnectInterval(5000);
 
@@ -103,8 +92,11 @@ void setup() {
 
 void loop() {
 	webSocket.loop();
-  webSocket.onEvent(webSocketEvent);
-
- 
+  
+  float temp = dht.readTemperature();
+  String t = (String)temp;
+  webSocket.sendTXT("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \""+t+"\"}");
+  USE_SERIAL.println("{\"action\":\"updatedata\",\"type\":\"Tempsensor\",\"id\":\"1\",\"data\" : \""+t+"\"}");
+  delay(2000);
  
 }

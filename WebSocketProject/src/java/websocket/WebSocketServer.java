@@ -73,13 +73,13 @@ public class WebSocketServer {
                     String time = DateHandler.getDateString(new Date());
                     sessionHandler.sendRealTimeData(jsonMessage); 
                     sessionHandler.client.addSensorDataToDB(data, id, type, time);
-                    sessionHandler.sendTestData();
-                    
+                   
+                    //sessionHandler.sendHistoricalJsonMsg(sessionHandler.client.getAllHistoricalDataBySensor("1"));
                 }
                 
                 if ("updatehistorical".equals(jsonMessage.getString("action"))){
-                    String id = jsonMessage.getString("id"); 
-                    
+                    sessionHandler.sendHistoricalJsonMsg(sessionHandler.client.getAllHistoricalDataBySensor("1"));
+               
                 }
                 
                 

@@ -8,7 +8,9 @@
 window.onload = init;
 var socket = new WebSocket("ws://192.168.0.108:8080/WebSocketProject/actions");
 
+var hideTable = true; 
 socket.onmessage = onMessage;
+var createdTable = false; 
 
 function onMessage(event) {
     var sensor = JSON.parse(event.data);
@@ -20,16 +22,39 @@ function onMessage(event) {
         var temp = document.getElementById("tempdata");
         temp.innerHTML = sensor.data;
     }
-    if(sensor.action==="test"){
-        var temp = document.getElementById("tempdata");
-        temp.innerHTML = sensor.data;
+    if(sensor.action==="historical"){
+        parseJsonMessageToTable(sensor); 
     }
 }
 
+
+function askForHistorical(){
+    if(hideTable){
+    var ask = { 
+         action: "updatehistorical"
+     }; 
+     socket.send(JSON.stringify(ask)); 
+     hideTable=false;
+    }
+    else{
+      document.getElementById("addTable").innerHTML = ""; 
+      document.getElementById("btn_one").innerHTML = "Historical values"; 
+      hideTable = true; 
+    }
+}
+
+function parseJsonMessageToTable(json){
+    var stock = new Array();
+    stock[0] = new Array(json.pair00,json.pair01);
+    stock[1] = new Array(json.pair10,json.pair11);
+    stock[2] = new Array(json.pair20,json.pair21);
+    stock[3] = new Array(json.pair30, json.pair31);
+    stock[4] = new Array(json.pair40, json.pair41);
+    generateTable(stock); 
+}
 // Toggle between showing and hiding the sidebar when clicking the menu icon
 var mySidebar = document.getElementById("mySidebar");
 
-var hideTable = true; 
 
 function w3_open() {
     if (mySidebar.style.display === 'block') {
@@ -56,19 +81,11 @@ function toggleTable(){
 
 }
 
-function generateTable(){
-
-    if(!hideTable){
-      document.getElementById("addTable").innerHTML = ""; 
-      
-    document.getElementById("btn_one").innerHTML = "Historical values"; 
-      hideTable = true; 
-    }
-    else{
-
+function generateTable(data){
+    
     document.getElementById("btn_one").innerHTML = "Hide"; 
     var myTableDiv = document.getElementById("addTable");
-
+    
     var table = document.createElement('TABLE');
     table.classList.add("w3-striped");
     table.classList.add("w3-white"); 
@@ -78,10 +95,10 @@ function generateTable(){
 
 
     var icons = new Array("fa fa-thermometer-3 w3-text-red w3-large", 
-      "fa fa-thermometer w3-text-blue w3-large", 
-      "fa fa-thermometer-2 w3-text-yellow w3-large", 
-      "fa fa-thermometer-1 w3-text-blue w3-large", 
-      "fa fa-thermometer-empty w3-text-green w3-large");
+      "fa fa-thermometer w3-text-red w3-large", 
+      "fa fa-thermometer-2 w3-text-red w3-large", 
+      "fa fa-thermometer-1 w3-text-red w3-large", 
+      "fa fa-thermometer-empty w3-text-red w3-large");
 
     var stock = new Array();
     stock[0] = new Array("Temp: 24.3", "2018-03-30 12:30:45.4");
@@ -99,16 +116,18 @@ for (i = 0; i < stock.length; i++) {
     tr.appendChild(td1);
     for (j = 0; j < stock[i].length; j++) {
         var td = document.createElement('TD')
-        td.appendChild(document.createTextNode(stock[i][j]));
+        td.appendChild(document.createTextNode(data[i][j]));
         tr.appendChild(td);
     }
     tableBody.appendChild(tr);
 }
-myTableDiv.appendChild(table)
-hideTable = false; 
+    myTableDiv.appendChild(table)
+
+
+//}
+    
 }
 
-}
+
 function init() {
-    hideForm();
 }
