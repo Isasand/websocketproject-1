@@ -32,7 +32,7 @@ public class SessionHandler {
     private final Set<Session> sessions = new HashSet<>();
     //a heashset for storing the active sessions in the application
     private final Set<Sensor> sensors = new HashSet<>(); 
-    //hash set for sensors 
+    //hash set for sensors if we want to load them for the clients from db
     
     public void addSession(Session session) {
         sessions.add(session);
@@ -78,16 +78,16 @@ public class SessionHandler {
         
         msg = provider.createObjectBuilder()
                 .add("action", "historical")
-                .add("pair00", historicList.get(0).getKey())                              
-                .add("pair01", historicList.get(0).getValue())
-                .add("pair10", historicList.get(1).getKey())                              
-                .add("pair11", historicList.get(1).getValue())
-                .add("pair20", historicList.get(2).getKey())                              
-                .add("pair21", historicList.get(2).getValue())
-                .add("pair30", historicList.get(3).getKey())                              
-                .add("pair31", historicList.get(3).getValue())
-                .add("pair40", historicList.get(4).getKey())                              
-                .add("pair41", historicList.get(4).getValue())
+                .add("time00", historicList.get(0).getKey())                              
+                .add("data01", historicList.get(0).getValue())
+                .add("time10", historicList.get(1).getKey())                              
+                .add("data11", historicList.get(1).getValue())
+                .add("time20", historicList.get(2).getKey())                              
+                .add("data21", historicList.get(2).getValue())
+                .add("time30", historicList.get(3).getKey())                              
+                .add("data31", historicList.get(3).getValue())
+                .add("time40", historicList.get(4).getKey())                              
+                .add("data41", historicList.get(4).getValue())
                 .build();
                 
         

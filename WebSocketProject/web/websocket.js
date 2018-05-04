@@ -46,11 +46,11 @@ function askForHistorical(){
 
 function parseJsonMessageToTable(json){
     var stock = new Array();
-    stock[0] = new Array(json.pair00,json.pair01);
-    stock[1] = new Array(json.pair10,json.pair11);
-    stock[2] = new Array(json.pair20,json.pair21);
-    stock[3] = new Array(json.pair30, json.pair31);
-    stock[4] = new Array(json.pair40, json.pair41);
+    stock[0] = new Array(json.time00,json.data01);
+    stock[1] = new Array(json.time10,json.data11);
+    stock[2] = new Array(json.time20,json.data21);
+    stock[3] = new Array(json.time30, json.data31);
+    stock[4] = new Array(json.time40, json.data41);
     generateTable(stock); 
 }
 // Toggle between showing and hiding the sidebar when clicking the menu icon
@@ -101,7 +101,7 @@ function generateTable(data){
       "fa fa-thermometer-1 w3-text-red w3-large", 
       "fa fa-thermometer-empty w3-text-red w3-large");
 
-    var stock = new Array();
+    var stock = new Array(); //for testing
     stock[0] = new Array("Temp: 24.3", "2018-03-30 12:30:45.4");
     stock[1] = new Array("Temp: 24.3", "2018-03-30 12:30:45.4");
     stock[2] = new Array("Temp: 24.3", "2018-03-30 12:30:45.4");

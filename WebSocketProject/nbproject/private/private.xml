@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/mejla/Desktop/PoppeSynk/GIT/Grupparbete/websocketproject/WebSocketProject/web/index.html</file>
             <file>file:/C:/Users/mejla/Desktop/PoppeSynk/GIT/Grupparbete/websocketproject/WebSocketProject/web/websocket.js</file>
-            <file>file:/C:/Users/mejla/Desktop/PoppeSynk/GIT/Grupparbete/websocketproject/WebSocketProject/src/java/websocket/WebSocketServer.java</file>
+            <file>file:/C:/Users/mejla/Desktop/PoppeSynk/GIT/Grupparbete/websocketproject/WebSocketProject/src/java/model/Test.java</file>
             <file>file:/C:/Users/mejla/Desktop/PoppeSynk/GIT/Grupparbete/websocketproject/WebSocketProject/src/java/websocket/SessionHandler.java</file>
+            <file>file:/C:/Users/mejla/Desktop/PoppeSynk/GIT/Grupparbete/websocketproject/WebSocketProject/src/java/websocket/WebSocketServer.java</file>
+            <file>file:/C:/Users/mejla/Desktop/PoppeSynk/GIT/Grupparbete/websocketproject/WebSocketProject/src/java/model/MySQLClient.java</file>
+            <file>file:/C:/Users/mejla/Desktop/PoppeSynk/GIT/Grupparbete/websocketproject/WebSocketProject/src/java/websocket/RealTimeData.java</file>
         </group>
     </open-files>
 </project-private>
